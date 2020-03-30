@@ -1,6 +1,6 @@
 # your_reminders
 
-A new Flutter application.
+A new Flutter application on reminders.
 
 ## Getting Started
 
