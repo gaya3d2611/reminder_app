@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'firstscreen.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
+
 
 class remider extends StatefulWidget {
   @override

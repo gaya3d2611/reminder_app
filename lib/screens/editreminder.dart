@@ -6,7 +6,7 @@ class editReminder extends StatefulWidget {
   var title, body, id;
   editReminder(tit, bod, ID){
     // here, you can take it in in 2 ways. i'll show both of them in each of the classes.
-    // First Method.
+    // First Method.fl
 
 
     this.title = tit;
