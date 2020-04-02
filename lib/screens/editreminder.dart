@@ -30,7 +30,7 @@ class _editReminderState extends State<editReminder> {
 
     update() async{
       print(idd);
-      print(title.text + body.text);
+      print(title.text + " " + body.text);
       await Firestore.instance.collection('reminders').document(idd).updateData({'title': title.text, 'body': body.text}); //setData({ 'title': titlee.text, 'body': bodyy.text });
       Navigator.pop(context);
     }

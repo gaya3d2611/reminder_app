@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'firstscreen.dart';
+import 'package:intl/intl.dart';
 
 
 class remider extends StatefulWidget {
@@ -13,11 +14,15 @@ class remider extends StatefulWidget {
 class _remiderState extends State<remider> {
   final title= new TextEditingController();
   final body= new TextEditingController();
+  final time= new TextEditingController();
   @override
   Widget build(BuildContext context) {
+    DateTime now = DateTime.now();
+    String formattedDate = DateFormat('kk:mm:ss').format(now);
     return Scaffold(
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         floatingActionButton: FloatingActionButton(onPressed: (){
+          time.text= formattedDate.toString();
           submit();
         },
           child: Icon(Icons.check),),
@@ -80,7 +85,8 @@ class _remiderState extends State<remider> {
                             )
                         ),
                       ),
-                    )
+                    ),
+
                   ],
                 ),
               )
@@ -90,9 +96,9 @@ class _remiderState extends State<remider> {
     );
   }
   submit() async{
-    print(title.text + body.text);
+    print(title.text + " " + body.text + " " + time.text);
     await Firestore.instance.collection('reminders').document()
-        .setData({ 'title': title.text, 'body': body.text });
+        .setData({ 'title': title.text, 'body': body.text, 'time': time.text });
     Navigator.pop(context);
   }
 }
