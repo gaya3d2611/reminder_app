@@ -26,6 +26,7 @@ dependencies:
   firebase_auth: ^0.15.3
   cloud_firestore: ^0.13.0+1
   intl: ^0.16.1
+  simpletime_picker: ^0.1.0
   #flutter_launcher_icons: "^0.7.0"
 
 dev_dependencies:

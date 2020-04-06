@@ -5,6 +5,11 @@ import 'package:flutter/material.dart';
 import 'firstscreen.dart';
 import 'package:intl/intl.dart';
 
+import 'package:simpletime_picker/constant.dart';
+import 'package:simpletime_picker/scrollable_time_picker.dart';
+import 'package:simpletime_picker/time_picker.dart';
+
+
 
 class remider extends StatefulWidget {
   @override
@@ -15,9 +20,18 @@ class _remiderState extends State<remider> {
   final title= new TextEditingController();
   final body= new TextEditingController();
   final time= new TextEditingController();
+  final reminderTime= TextEditingController();
+  TimeOfDay _time = TimeOfDay.now();
+
+  void onTimeChanged(TimeOfDay newTime) {
+    setState(() {
+      _time = newTime;
+    });
+  }
   @override
   Widget build(BuildContext context) {
     DateTime now = DateTime.now();
+    final format = DateFormat("HH:mm");
     String formattedDate = DateFormat('kk:mm:ss').format(now);
     return Scaffold(
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
@@ -62,7 +76,6 @@ class _remiderState extends State<remider> {
                           decoration: InputDecoration(
                             border: OutlineInputBorder(),
                             labelText: "give your reminder a title",
-
                           ),
 
                         ),
@@ -86,19 +99,38 @@ class _remiderState extends State<remider> {
                         ),
                       ),
                     ),
-
+                    Padding(padding: const EdgeInsets.all(20.0),
+                      child:
+                      RaisedButton(
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24.0)),
+                          color: Colors.black,
+                          onPressed: () async {
+                            var result = await TimePicker.pickTime(context,
+                                selectedColor: Colors.amber,
+                                nonSelectedColor: Colors.black,
+                                displayType: DisplayType.bottomSheet,
+                                timePickType: TimePickType.hourMinute,
+                                buttonBackgroundColor: Colors.red,
+                                title: "this is bottomsheet",
+                                fontSize: 24.0,
+                                isTwelveHourFormat: true);
+                            print("ini apa ? $result");
+                            reminderTime.text= result.toString();
+                          },
+                          child: Text("Click to enter time"), textColor: Colors.white,),
+                    ),
                   ],
                 ),
-              )
+              ),
             ]
-
         )
     );
   }
   submit() async{
-    print(title.text + " " + body.text + " " + time.text);
+    print(title.text + " " + body.text + " " + time.text + " " + reminderTime.text);
     await Firestore.instance.collection('reminders').document()
-        .setData({ 'title': title.text, 'body': body.text, 'time': time.text });
+        .setData({ 'title': title.text, 'body': body.text, 'time': time.text, 'reminderTime': reminderTime.text });
     Navigator.pop(context);
   }
+
 }

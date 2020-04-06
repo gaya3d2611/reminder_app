@@ -72,29 +72,42 @@ class FirstScreenState extends State<FirstScreen> {
                     case ConnectionState.waiting:
                       return new Text('Loading...');
                     default:
-                      return new ListView(
-                        children: snapshot.data.documents.map((
-                            DocumentSnapshot document) {
-                          return Padding(
-                            padding: const EdgeInsets.all(8.0),
-                              child: Card(
-                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20.0))),
-                                  elevation: 0,
-                                  color: Color(0xB3ffffff),
-                                  child: FlatButton(onPressed: (){
-                                    id=document.documentID;
-                                    print(id);
-                                    transport(editReminder( document['title'],
-                                      document['body'], id));
-                                  }, child: new ListTile(
-                                    title: new Text(document['title']),
-                                    subtitle: new Text(document['body']),
-                                  ),)
-                              ),
+                      return ListView(
+                            children: snapshot.data.documents.map((
+                                DocumentSnapshot document) {
+                              return Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                  child: Card(
+                                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20.0))),
+                                      elevation: 0,
+                                      color: Color(0xB3ffffff),
+                                      child: FlatButton(onPressed: (){
+                                        id=document.documentID;
+                                        print(id);
+                                        transport(editReminder( document['title'],
+                                          document['body'], id));
+                                      }, child: new ListTile(
+                                        title: new Text(document['title']),
+                                        subtitle: new Text(document['body']),
+                                      ),)
+                                  ),
+                                /*SizedBox(
+                                  width: MediaQuery.of(context).size.width/2,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Container(
+                                      child: new ListTile(
+                                        title: new Text(document['title']),
+                                        subtitle: new Text(document['body']),
+                                      )
+                                    ),
+                                  ),
+                                ), */
 
-                          );
-                        }
-                        ).toList(),
+                              );
+                            }
+                            ).toList(),
+
                       );
                   }
                 }
