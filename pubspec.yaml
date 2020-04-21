@@ -27,6 +27,10 @@ dependencies:
   cloud_firestore: ^0.13.0+1
   intl: ^0.16.1
   simpletime_picker: ^0.1.0
+  flutter_local_notifications: ^1.4.1
+  path_provider: ^1.6.5
+  rxdart: ^0.23.1
+  firebase_messaging: ^6.0.13
   #flutter_launcher_icons: "^0.7.0"
 
 dev_dependencies:
