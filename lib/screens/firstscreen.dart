@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import "package:flutter/material.dart";
 import 'package:your_reminders/screens/editreminder.dart';
 import 'reminder.dart';
@@ -17,14 +18,6 @@ class FirstScreenState extends State<FirstScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var w = MediaQuery
-        .of(context)
-        .size
-        .width;
-    var h = MediaQuery
-        .of(context)
-        .size
-        .height;
     var id;
     return Scaffold(
 
@@ -77,7 +70,7 @@ class FirstScreenState extends State<FirstScreen> {
                                 DocumentSnapshot document) {
                               return Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                  child: Card(
+                                  child: /*Card(
                                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20.0))),
                                       elevation: 0,
                                       color: Color(0xB3ffffff),
@@ -90,24 +83,57 @@ class FirstScreenState extends State<FirstScreen> {
                                         title: new Text(document['title']),
                                         subtitle: new Text(document['body']),
                                       ),)
-                                  ),
-                                /*SizedBox(
-                                  width: MediaQuery.of(context).size.width/2,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Container(
-                                      child: new ListTile(
-                                        title: new Text(document['title']),
-                                        subtitle: new Text(document['body']),
+                                  ), */
+                                Container(
+                                  child: Row(
+                                    children: <Widget>[
+                                      Container(
+                                        decoration: BoxDecoration(
+                                          color: Colors.deepPurpleAccent,
+                                          borderRadius: BorderRadius.only(topLeft: Radius.circular(20.0), bottomLeft: Radius.circular(20.0),)
+                                        ),
+                                        width: MediaQuery.of(context).size.width-90,
+                                        child: FlatButton(
+                                          onPressed: (){
+                                            id=document.documentID;
+                                            print(id);
+                                            transport(editReminder( document['title'],
+                                                document['body'], id));
+                                          },
+                                          child: new ListTile(
+                                            title: new Text(document['title']),
+                                            subtitle: new Text(document['body']),
+                                          ),
+                                        ),
+                                      ),
+                                      Container(
+                                        width: 70,
+                                          child: /*InkWell(
+                                            child: new IconButton(
+                                                icon: Icon(Icons.delete), onPressed: (){
+                                                  Firestore.instance.collection("reminders").document(id).delete();
+                                                }
+                                                ),
+                                            onTap: (){
+                                              Firestore.instance.collection("reminders").document(id).delete();
+                                            },
+                                          ) */
+                                          FlatButton(onPressed:(){
+                                            id=document.documentID;
+                                            print(id);
+                                            Firestore.instance.collection('reminders').document(id).delete();
+                                          }, child: Icon(Icons.delete))
                                       )
-                                    ),
+                                    ],
                                   ),
-                                ), */
-
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                      borderRadius: BorderRadius.all(Radius.circular(20.0),)
+                                  ),
+                                ),
                               );
                             }
                             ).toList(),
-
                       );
                   }
                 }
