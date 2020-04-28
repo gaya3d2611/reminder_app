@@ -89,7 +89,7 @@ class FirstScreenState extends State<FirstScreen> {
                                     children: <Widget>[
                                       Container(
                                         decoration: BoxDecoration(
-                                          color: Colors.deepPurpleAccent,
+                                          //color: Colors.deepPurpleAccent,
                                           borderRadius: BorderRadius.only(topLeft: Radius.circular(20.0), bottomLeft: Radius.circular(20.0),)
                                         ),
                                         width: MediaQuery.of(context).size.width-90,

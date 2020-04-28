@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import 'package:your_reminders/screens/landingScreen.dart';
 import "screens/firstscreen.dart";
 void main()
 {
@@ -11,8 +12,7 @@ class firstscreen extends StatelessWidget {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         title: "YOUR REMINDERS",
-        home: FirstScreen()
-
+        home: landingScreen(),
     );
   }
 }
