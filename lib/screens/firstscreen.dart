@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import "package:flutter/material.dart";
+import 'package:your_reminders/Services/auth.dart';
 import 'package:your_reminders/screens/editreminder.dart';
 import 'reminder.dart';
 class FirstScreen extends StatefulWidget {
@@ -10,20 +11,29 @@ class FirstScreen extends StatefulWidget {
   State createState() => FirstScreenState();
 }
 class FirstScreenState extends State<FirstScreen> {
+  var userr;
   @override
-  void initState() {
+  void initState(){
+    some();
+    print(userr);
+    print('**********************');
     super.initState();
-    Timer(Duration(seconds: 5), () => print("timeout"));
   }
-
+  final AuthService _authService= AuthService();
+  some()async{
+    final FirebaseUser user= await FirebaseAuth.instance.currentUser();
+    final String UID = user.uid.toString();
+    setState(() {
+      userr=UID;
+    });
+  }
   @override
   Widget build(BuildContext context) {
     var id;
     return Scaffold(
-
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         floatingActionButton: FloatingActionButton(
-          onPressed: () {
+          onPressed: () async{
             transport(remider());
           }, child: Icon(Icons.add),
         ),
@@ -55,7 +65,7 @@ class FirstScreenState extends State<FirstScreen> {
               ),
             ),
             StreamBuilder<QuerySnapshot>(
-                stream: Firestore.instance.collection('reminders')
+                stream: Firestore.instance.collection('reminders').document(userr).collection('reminder')
                     .snapshots(),
                 builder: (BuildContext context,
                     AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -121,7 +131,7 @@ class FirstScreenState extends State<FirstScreen> {
                                           FlatButton(onPressed:(){
                                             id=document.documentID;
                                             print(id);
-                                            Firestore.instance.collection('reminders').document(id).delete();
+                                            Firestore.instance.collection('reminders').document(userr).collection('reminder').document(id).delete();
                                           }, child: Icon(Icons.delete))
                                       )
                                     ],

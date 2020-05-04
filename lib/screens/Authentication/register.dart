@@ -20,6 +20,8 @@ class _registerPageState extends State<registerPage> {
   final body= new TextEditingController();
   final time= new TextEditingController();
   final reminderTime= TextEditingController();
+  String UID;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -129,10 +131,14 @@ class _registerPageState extends State<registerPage> {
                           if(_formKey.currentState.validate()){
                             dynamic result = await _authService.registerWithEmailAndPassword(usern, passw);
                             if(result==null){
-                              setState(()=> error= 'some fields are missing'
+                              setState(()=> error= 'Entered E-Mail or password is incorrect'
                               );
                             }else{
                               //submit();
+                              print('**********************************************');
+                              print(result.uid);
+                              print('**********************************************');
+                              UID= result.uid;
                               Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> FirstScreen()));
                             }
                           }
@@ -166,6 +172,7 @@ class _registerPageState extends State<registerPage> {
                         width: MediaQuery.of(context).size.width-260,
                         height: 50,
                         child: RaisedButton(onPressed: ()async{
+
                           Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> loginPage()));
                         },
                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24.0)),
@@ -196,9 +203,9 @@ class _registerPageState extends State<registerPage> {
       ),
     );
   }
-  /*submit() async{
+  submit() async{
     //print(title.text + " " + body.text + " " + time.text + " " + reminderTime.text);
-    await Firestore.instance.collection('reminders').document().collection(usern).document(passw).setData({'title': title.text, 'body': body.text, 'time': time.text, 'reminderTime': reminderTime.text});
+    await Firestore.instance.collection('reminders').document(UID).collection('reminder').document().setData({});
     Navigator.pop(context);
-  } */
+  }
 }

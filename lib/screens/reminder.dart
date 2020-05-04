@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:your_reminders/Services/auth.dart';
 import 'firstscreen.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -15,15 +16,33 @@ import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
 import 'package:rxdart/subjects.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
+import "package:flutter/material.dart";
+import 'package:your_reminders/Services/auth.dart';
+import 'package:your_reminders/screens/editreminder.dart';
+import 'reminder.dart';
 class remider extends StatefulWidget {
+
   @override
   _remiderState createState() => _remiderState();
 }
 class _remiderState extends State<remider> {
+  var userr;
+  final AuthService _authService= AuthService();
+  some()async{
+    final FirebaseUser user= await FirebaseAuth.instance.currentUser();
+    final String UID = user.uid.toString();
+    setState(() {
+      userr=UID;
+    });
+  }
   final title= new TextEditingController();
   final body= new TextEditingController();
   final time= new TextEditingController();
   final reminderTime= TextEditingController();
+
    /*TimeOfDay _time = TimeOfDay.now();
   void onTimeChanged(TimeOfDay newTime) {
     setState(() {
@@ -33,6 +52,9 @@ class _remiderState extends State<remider> {
   final FirebaseMessaging messaging =FirebaseMessaging();
   @override
   void initState(){
+    some();
+    print(userr);
+    print('**********************');
     super.initState();
     messaging.getToken().then((token){
       print("token:" + token);
@@ -226,7 +248,7 @@ class _remiderState extends State<remider> {
   }
   submit() async{
     print(title.text + " " + body.text + " " + time.text + " " + reminderTime.text);
-    await Firestore.instance.collection('reminders').document()
+    await Firestore.instance.collection('reminders').document(userr).collection('reminder').document()
         .setData({ 'title': title.text, 'body': body.text, 'time': time.text, 'reminderTime': reminderTime.text });
     Navigator.pop(context);
   }
