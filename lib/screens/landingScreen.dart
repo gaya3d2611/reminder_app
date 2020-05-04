@@ -3,7 +3,9 @@ import 'package:flutter/animation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:your_reminders/screens/Authentication/register.dart';
 import 'package:your_reminders/screens/firstscreen.dart';
+import 'package:your_reminders/screens/Authentication/loginPage.dart';
 
 class landingScreen extends StatefulWidget {
   @override
@@ -35,7 +37,7 @@ class _landingScreenState extends State<landingScreen> with SingleTickerProvider
     return Timer(duration, route);
   }
   route(){
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>FirstScreen()));
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>registerPage()));
   }
 
   @override
