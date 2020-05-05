@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:your_reminders/Services/auth.dart';
+import 'package:your_reminders/screens/Authentication/register.dart';
 import 'package:your_reminders/screens/firstscreen.dart';
 
 class loginPage extends StatefulWidget {
@@ -51,7 +52,7 @@ class _loginPageState extends State<loginPage> {
                         hintText: "E-Mail",
                         hintStyle: TextStyle(
                             color: Colors.grey, fontSize: 14.0)),
-                      validator: (val) => val.isEmpty? 'Enter your name' : null,
+                      validator: (val) => val.isEmpty? 'Enter your email' : null,
                       onChanged: (val)=>
                           setState(()=> usern=val),
 
@@ -87,7 +88,7 @@ class _loginPageState extends State<loginPage> {
                         if(_formKey.currentState.validate()){
                           dynamic result = await _authService.signInWithEmailAndPassword(usern, passw);
                           if(result==null){
-                            setState(()=> error= 'some fields are missing'
+                            setState(()=> error= 'Entered E-Mail or password is incorrect'
                             );
                           }else{
                             Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> FirstScreen()));
@@ -112,21 +113,21 @@ class _loginPageState extends State<loginPage> {
                   )
                   ),
                 ),
-                SizedBox(height: 30,),
+                SizedBox(height: 20,),
                 Text('or', style: TextStyle(color: Colors.black26, fontSize: 14.0)),
                 Center(
                   child: Padding(
-                      padding: const EdgeInsets.only(top: 40),
+                      padding: const EdgeInsets.only(top: 10),
                       child: Container(
                         width: MediaQuery.of(context).size.width-260,
                         height: 50,
                         child: RaisedButton(onPressed: ()async{
-                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> loginPage()));
+                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> registerPage()));
                         },
                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24.0)),
                           color: Colors.black,
                           elevation: 0,
-                          child: Text('go to login', textAlign: TextAlign.center, style: TextStyle(color:Colors.white, fontSize: 20.0, fontWeight: FontWeight.bold)),
+                          child: Text('Sign up', textAlign: TextAlign.center, style: TextStyle(color:Colors.white, fontSize: 20.0, fontWeight: FontWeight.bold)),
                           /*child: Ink(
                        decoration: BoxDecoration(
                          gradient: LinearGradient(
@@ -142,7 +143,7 @@ class _loginPageState extends State<loginPage> {
                   ),
                 ),
                 SizedBox(height: 30,),
-                Text(error, style: TextStyle(color: Colors.red, fontSize: 14.0))
+                Center(child: Text(error, style: TextStyle(color: Colors.red, fontSize: 14.0)))
                 ],
                 ),
           ),

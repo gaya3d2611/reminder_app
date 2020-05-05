@@ -44,6 +44,7 @@ class _registerPageState extends State<registerPage> {
                     // keyboardType: TextInputType.phone,
                     //validator: validateMobile,
                       decoration: InputDecoration(
+                        fillColor: Colors.white,
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(24.0),
                               borderSide: BorderSide()
@@ -59,12 +60,13 @@ class _registerPageState extends State<registerPage> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 50, right: 50, top: 30),
+                  padding: const EdgeInsets.only(left: 50, right: 50, top: 20),
                   child: TextFormField(
                     // keyboardType: TextInputType.phone,
                     //validator: validateMobile,
                       //obscureText: true,
                       decoration: InputDecoration(
+                          fillColor: Colors.white,
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(24.0),
                               borderSide: BorderSide()
@@ -73,19 +75,20 @@ class _registerPageState extends State<registerPage> {
                           hintText: "E-Mail",
                           hintStyle: TextStyle(
                               color: Colors.grey, fontSize: 14.0)),
-                      validator: (val) => val.isEmpty? 'Enter Username' : null,
+                      validator: (val) => val.isEmpty? 'Enter Email' : null,
                       onChanged: (val) {
                         setState(() => usern = val);
                       }
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 50, right: 50, top: 30),
+                  padding: const EdgeInsets.only(left: 50, right: 50, top: 20),
                   child: TextFormField(
                     // keyboardType: TextInputType.phone,
                     //validator: validateMobile,
                       obscureText: true,
                       decoration: InputDecoration(
+                          fillColor: Colors.white,
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(24.0),
                               borderSide: BorderSide()
@@ -101,12 +104,13 @@ class _registerPageState extends State<registerPage> {
                   ),
                 ),
                Padding(
-                  padding: const EdgeInsets.only(left: 50, right: 50, top: 30),
+                  padding: const EdgeInsets.only(left: 50, right: 50, top: 20),
                   child: TextFormField(
                     // keyboardType: TextInputType.phone,
                     //validator: validateMobile,
                       obscureText: true,
                       decoration: InputDecoration(
+                          fillColor: Colors.white,
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(24.0),
                               borderSide: BorderSide()
@@ -123,7 +127,7 @@ class _registerPageState extends State<registerPage> {
                 ),
                 Center(
                   child: Padding(
-                      padding: const EdgeInsets.only(top: 40),
+                      padding: const EdgeInsets.only(top: 30),
                       child: Container(
                         width: MediaQuery.of(context).size.width-260,
                         height: 50,
@@ -176,7 +180,7 @@ class _registerPageState extends State<registerPage> {
                           Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> loginPage()));
                         },
                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24.0)),
-                          color: Colors.black,
+                          color: Color(0xFF604F8E),
                           elevation: 0,
                           child: Text('go to login', textAlign: TextAlign.center, style: TextStyle(color:Colors.white, fontSize: 20.0, fontWeight: FontWeight.bold)),
                           /*child: Ink(

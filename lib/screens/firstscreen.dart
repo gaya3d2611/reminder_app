@@ -47,7 +47,7 @@ class FirstScreenState extends State<FirstScreen> {
           actions: <Widget>[
             FlatButton(
               onPressed: (){
-               // FirebaseAuth.instance.signOut();
+                FirebaseAuth.instance.signOut();
               },
               child: Icon(Icons.exit_to_app, color: Colors.white,),
             )
