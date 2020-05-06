@@ -64,6 +64,10 @@ flutter:
     - asset/images/reminderGIF.gif
     - asset/images/loginBackground.png
     - asset/images/registerBackground.png
+    - asset/images/welcomeBox.png
+    - asset/images/oops.png
+    - asset/images/reminderBackground.png
+    - asset/images/editReminderBackground.png
     #- asset/images/reminder.png
 
   # An image asset can refer to one or more resolution-specific "variants", see

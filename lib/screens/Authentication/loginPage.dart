@@ -116,30 +116,27 @@ class _loginPageState extends State<loginPage> {
                 SizedBox(height: 20,),
                 Text('or', style: TextStyle(color: Colors.black26, fontSize: 14.0)),
                 Center(
-                  child: Padding(
-                      padding: const EdgeInsets.only(top: 10),
-                      child: Container(
-                        width: MediaQuery.of(context).size.width-260,
-                        height: 50,
-                        child: RaisedButton(onPressed: ()async{
-                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> registerPage()));
-                        },
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24.0)),
-                          color: Colors.black,
-                          elevation: 0,
-                          child: Text('Sign up', textAlign: TextAlign.center, style: TextStyle(color:Colors.white, fontSize: 20.0, fontWeight: FontWeight.bold)),
-                          /*child: Ink(
-                       decoration: BoxDecoration(
-                         gradient: LinearGradient(
-                           colors: <Color>[
-                             Color(),
+                  child: Container(
+                    width: MediaQuery.of(context).size.width-260,
+                    height: 50,
+                    child: RaisedButton(onPressed: ()async{
+                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> registerPage()));
+                    },
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24.0)),
+                      color: Colors.black,
+                      elevation: 0,
+                      child: Text('Sign up', textAlign: TextAlign.center, style: TextStyle(color:Colors.white, fontSize: 20.0, fontWeight: FontWeight.bold)),
+                      /*child: Ink(
+                   decoration: BoxDecoration(
+                     gradient: LinearGradient(
+                       colors: <Color>[
+                         Color(),
 
-                           ]
-                         )
-                       ),
+                       ]
+                     )
+                   ),
                      ), */
-                        ),
-                      )
+                    ),
                   ),
                 ),
                 SizedBox(height: 30,),

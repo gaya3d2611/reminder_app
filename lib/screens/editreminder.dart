@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -57,68 +58,59 @@ class _editReminderState extends State<editReminder> {
       update();
     },
     child: Icon(Icons.check),),
-      appBar: AppBar(
-        actions: <Widget>[
-          FlatButton(
-            onPressed: (){
-              // FirebaseAuth.instance.signOut();
-            },
-            child: Icon(Icons.exit_to_app, color: Colors.white,),
-          )
-        ],
-        title: Text("Your Reminders", style: TextStyle(color: Colors.white),),
-        centerTitle: true,
-        backgroundColor: Color(0xff121212),),
       body: Stack(
         fit: StackFit.expand,
         children: <Widget>[
           Container(
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
             decoration: new BoxDecoration(image: new DecorationImage(
-                image: AssetImage('asset/images/reminders.jpg'),
+                image: AssetImage('asset/images/reminderBackground.png'),
                 fit: BoxFit.fitHeight)
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Color(0x52000000),
-                    ),
-                    child: TextField(
-                      controller: title,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: "give your reminder a title",
-
+          Column(
+            children: <Widget>[
+              SizedBox(height: MediaQuery.of(context).size.height/2),
+              Center(
+                child: Container(
+                  width: MediaQuery.of(context).size.width-50,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(20)),
+                    color: Color(0xffffffff),
+                  ),
+                  child: TextField(
+                    controller: title,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20)
                       ),
+                      labelText: "give your reminder a title",
 
                     ),
+
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(9)),
-                      color: Color(0x52000000),
-                    ),
-
-                    child: TextField(
-                        maxLines: 6,
-                        controller: body,
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(),
-                          labelText: "enter your reminder",
-                        )
-                    ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  width: MediaQuery.of(context).size.width-50,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(20)),
+                    color: Color(0xffffffff),
                   ),
-                )
-              ],
-            ),
+                  child: TextField(
+                      maxLines: 6,
+                      controller: body,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
+                        labelText: "enter your reminder",
+                      )
+                  ),
+                ),
+              )
+            ],
           )
         ],
       ),

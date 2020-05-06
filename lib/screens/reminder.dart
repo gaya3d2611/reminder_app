@@ -158,24 +158,12 @@ class _remiderState extends State<remider> {
           submit();
         },
           child: Icon(Icons.check),),
-        appBar: AppBar(
-          actions: <Widget>[
-            /*FlatButton(
-              onPressed: (){
-                FirebaseAuth.instance.signOut();
-              },
-              child: Icon(Icons.exit_to_app, color: Colors.white,),
-            ) */
-          ],
-          title: Text("Your Reminders", style: TextStyle(color: Colors.white),),
-          centerTitle: true,
-          backgroundColor: Color(0xff121212),),
         body: Stack(
             fit: StackFit.expand,
             children: <Widget>[
               Container(
                 decoration: new BoxDecoration(image: new DecorationImage(
-                    image: AssetImage('asset/images/reminders.jpg'),
+                    image: AssetImage('asset/images/reminderBackground.png'),
                     fit: BoxFit.fitHeight)
                 ),
               ),
