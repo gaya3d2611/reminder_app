@@ -46,7 +46,7 @@ class _remiderState extends State<remider> {
         .collection('reminders')
         .document(userr)
         .collection('details')
-        .document('userDetails')
+        .document('udetails')
         .get();
   }
 
