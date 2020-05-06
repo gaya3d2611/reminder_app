@@ -41,18 +41,6 @@ class _remiderState extends State<remider> {
     });
   }
 
-  somefunc() async {
-    name = await Firestore.instance
-        .collection('reminders')
-        .document(userr)
-        .collection('details')
-        .document('udetails')
-        .get();
-
-    print('*******************************************');
-    print(name);
-  }
-
   final title = new TextEditingController();
   final body = new TextEditingController();
   final time = new TextEditingController();
@@ -67,14 +55,13 @@ class _remiderState extends State<remider> {
   final FirebaseMessaging messaging = FirebaseMessaging();
   @override
   void initState() {
-    somefunc();
-    /* some();
+    some();
     print(userr);
     print('**********************');
     super.initState();
     messaging.getToken().then((token) {
       print("token:" + token);
-    }); */
+    });
   }
 
   @override
