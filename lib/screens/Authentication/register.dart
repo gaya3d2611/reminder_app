@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:your_reminders/Services/auth.dart';
@@ -163,6 +164,10 @@ class _registerPageState extends State<registerPage> {
                             if (_formKey.currentState.validate()) {
                               dynamic result = await _authService
                                   .registerWithEmailAndPassword(usern, passw);
+                              /* FirebaseUser user = (await FirebaseAuth.instance
+                                      .createUserWithEmailAndPassword(
+                                          email: usern, password: passw))
+                                  .user; */
                               if (result == null) {
                                 setState(() => error =
                                     'Entered E-Mail or password is incorrect');
