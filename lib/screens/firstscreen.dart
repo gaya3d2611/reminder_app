@@ -16,19 +16,29 @@ class FirstScreenState extends State<FirstScreen> {
   var userr;
   var uname;
   var name;
-  @override
-  void initState() {
-    some();
-    print(userr);
-    print(uname);
-    print('**********************');
-    name = Firestore.instance
+  nameFetch() async {
+    name = await Firestore.instance
         .collection('reminders')
         .document(userr)
         .collection('details')
         .document('udetails')
-        .collection('name');
+        .get()
+        .then(
+      (value) {
+        print(value.toString());
+      },
+    );
+  }
+
+  @override
+  void initState() {
+    some();
+    //print(userr);
+    print(uname);
+    print('**********************');
+    nameFetch();
     name = name.toString();
+    print('*-***********************');
     print(name);
     super.initState();
   }
