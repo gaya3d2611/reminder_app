@@ -48,6 +48,9 @@ class _remiderState extends State<remider> {
         .collection('details')
         .document('udetails')
         .get();
+
+    print('*******************************************');
+    print(name);
   }
 
   final title = new TextEditingController();
