@@ -14,9 +14,10 @@ class FirstScreen extends StatefulWidget {
 
 class FirstScreenState extends State<FirstScreen> {
   var userr;
-  var uname;
   var name;
+
   nameFetch() async {
+    print(userr + 'thi is fetcg function');
     name = await Firestore.instance
         .collection('reminders')
         .document(userr)
@@ -26,29 +27,29 @@ class FirstScreenState extends State<FirstScreen> {
         .then(
       (value) {
         print(value.toString());
+        print(name + 'this is name');
       },
     );
   }
-
   @override
   void initState() {
     some();
-    //print(userr);
-    print(uname);
+    print(userr);
     print('**********************');
+    name=name.toString();
     super.initState();
   }
+
 
  // final AuthService _authService = AuthService();
   some() async {
     final FirebaseUser user = await FirebaseAuth.instance.currentUser();
-    final String UID = user.uid.toString();
-    final String unamee = user.uid.toString();
-    print(unamee);
+    userr= user.uid;
+    print(userr + 'this is some function');
     print('************************************');
     nameFetch();
-    name = name.toString();
-    print('*-***********************');
+
+    print('*-********************');
     print(name);
   }
 
@@ -119,7 +120,7 @@ class FirstScreenState extends State<FirstScreen> {
                           ),
                           Center(
                             child: Text(
-                              'Welcome, ' ,
+                              'Welcome, ' + name ,
                               style: TextStyle(
                                   color: Colors.white, fontSize: 28.0),
                             ),
