@@ -53,11 +53,11 @@ class _editReminderState extends State<editReminder> {
       Navigator.pop(context);
     }
     return Scaffold(
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        floatingActionButton: FloatingActionButton(onPressed:() async{
-      update();
-    },
-    child: Icon(Icons.check),),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: FloatingActionButton(onPressed:() async{
+        update();
+      },
+        child: Icon(Icons.check),),
       body: Stack(
         fit: StackFit.expand,
         children: <Widget>[
@@ -83,7 +83,7 @@ class _editReminderState extends State<editReminder> {
                     controller: title,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20)
+                          borderRadius: BorderRadius.circular(20)
                       ),
                       labelText: "give your reminder a title",
 

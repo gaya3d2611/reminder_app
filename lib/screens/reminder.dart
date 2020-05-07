@@ -23,28 +23,25 @@ import "package:flutter/material.dart";
 import 'package:your_reminders/Services/auth.dart';
 import 'package:your_reminders/screens/editreminder.dart';
 import 'reminder.dart';
-
 class remider extends StatefulWidget {
+
   @override
   _remiderState createState() => _remiderState();
 }
-
 class _remiderState extends State<remider> {
   var userr;
-  final AuthService _authService = AuthService();
-  var name;
-  some() async {
-    final FirebaseUser user = await FirebaseAuth.instance.currentUser();
+  final AuthService _authService= AuthService();
+  some()async{
+    final FirebaseUser user= await FirebaseAuth.instance.currentUser();
     final String UID = user.uid.toString();
     setState(() {
-      userr = UID;
+      userr=UID;
     });
   }
-
-  final title = new TextEditingController();
-  final body = new TextEditingController();
-  final time = new TextEditingController();
-  final reminderTime = TextEditingController();
+  final title= new TextEditingController();
+  final body= new TextEditingController();
+  final time= new TextEditingController();
+  final reminderTime= TextEditingController();
 
   /*TimeOfDay _time = TimeOfDay.now();
   void onTimeChanged(TimeOfDay newTime) {
@@ -52,18 +49,17 @@ class _remiderState extends State<remider> {
       _time = newTime;
     });
   } */
-  final FirebaseMessaging messaging = FirebaseMessaging();
+  final FirebaseMessaging messaging =FirebaseMessaging();
   @override
-  void initState() {
+  void initState(){
     some();
     print(userr);
     print('**********************');
     super.initState();
-    messaging.getToken().then((token) {
+    messaging.getToken().then((token){
       print("token:" + token);
     });
   }
-
   @override
   Widget build(BuildContext context) {
     /* FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =  FlutterLocalNotificationsPlugin();
@@ -119,7 +115,6 @@ class _remiderState extends State<remider> {
     /*Future<void> cancelNotification(int id) async {
       await flutterLocalNotificationsPlugin.cancel(id);
     }
-
     Future<void> cancelAllNotifications() async {
       await flutterLocalNotificationsPlugin.cancelAll();
     } */
@@ -147,10 +142,9 @@ class _remiderState extends State<remider> {
     String formattedDate = DateFormat('hh:mm:ss').format(now);
     return Scaffold(
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        floatingActionButton: FloatingActionButton(
-          onPressed: () async {
-            time.text = formattedDate.toString();
-            /* await flutterLocalNotificationsPlugin.showWeeklyAtDayAndTime(id, title, body, day, notificationTime, notificationDetails)Time(
+        floatingActionButton: FloatingActionButton(onPressed: ()async{
+          time.text= formattedDate.toString();
+          /* await flutterLocalNotificationsPlugin.showWeeklyAtDayAndTime(id, title, body, day, notificationTime, notificationDetails)Time(
             Time(1,30,0),
             Day.Sunday,
             0,
@@ -160,104 +154,92 @@ class _remiderState extends State<remider> {
           setState(() {
             flutterLocalNotificationsPlugin.getScheduledNotifications();
           }); */
-            submit();
-          },
-          child: Icon(Icons.check),
-        ),
-        body: Stack(fit: StackFit.expand, children: <Widget>[
-          Container(
-            decoration: new BoxDecoration(
-                image: new DecorationImage(
+          submit();
+        },
+          child: Icon(Icons.check),),
+        body: Stack(
+            fit: StackFit.expand,
+            children: <Widget>[
+              Container(
+                decoration: new BoxDecoration(image: new DecorationImage(
                     image: AssetImage('asset/images/reminderBackground.png'),
-                    fit: BoxFit.fitHeight)),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Color(0x52000000),
-                    ),
-                    child: TextField(
-                      controller: title,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: "give your reminder a title",
+                    fit: BoxFit.fitHeight)
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Color(0x52000000),
+                        ),
+                        child: TextField(
+                          controller: title,
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(),
+                            labelText: "give your reminder a title",
+                          ),
+
+                        ),
                       ),
                     ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(9)),
-                      color: Color(0x52000000),
-                    ),
-                    child: TextField(
-                        maxLines: 6,
-                        controller: body,
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(),
-                          labelText: "enter your reminder",
-                        )),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: RaisedButton(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(24.0)),
-                    color: Colors.black,
-                    onPressed: () async {
-                      var result = await TimePicker.pickTime(context,
-                          selectedColor: Colors.amber,
-                          nonSelectedColor: Colors.black,
-                          displayType: DisplayType.bottomSheet,
-                          timePickType: TimePickType.hourMinute,
-                          buttonBackgroundColor: Colors.red,
-                          title: "this is bottomsheet",
-                          fontSize: 24.0,
-                          isTwelveHourFormat: true);
-                      print("ini apa ? $result");
-                      reminderTime.text = result.toString();
-                      //String reminderTimee = DateFormat('hh:mm:ss').format(result),
-                    },
-                    child: Text("Click to enter time"),
-                    textColor: Colors.white,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ]));
-  }
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(9)),
+                          color: Color(0x52000000),
+                        ),
 
-  submit() async {
-    print(title.text +
-        " " +
-        body.text +
-        " " +
-        time.text +
-        " " +
-        reminderTime.text);
-    await Firestore.instance
-        .collection('reminders')
-        .document(userr)
-        .collection('reminder')
-        .document()
-        .setData({
-      'title': title.text,
-      'body': body.text,
-      'time': time.text,
-      'reminderTime': reminderTime.text
-    });
+                        child: TextField(
+                            maxLines: 6,
+                            controller: body,
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                              labelText: "enter your reminder",
+                            )
+                        ),
+                      ),
+                    ),
+                    Padding(padding: const EdgeInsets.all(20.0),
+                      child:
+                      RaisedButton(
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24.0)),
+                        color: Colors.black,
+                        onPressed: () async {
+                          var result = await TimePicker.pickTime(context,
+                              selectedColor: Colors.amber,
+                              nonSelectedColor: Colors.black,
+                              displayType: DisplayType.bottomSheet,
+                              timePickType: TimePickType.hourMinute,
+                              buttonBackgroundColor: Colors.red,
+                              title: "this is bottomsheet",
+                              fontSize: 24.0,
+                              isTwelveHourFormat: true);
+                          print("ini apa ? $result");
+                          reminderTime.text= result.toString();
+                          //String reminderTimee = DateFormat('hh:mm:ss').format(result),
+
+                        },
+                        child: Text("Click to enter time"), textColor: Colors.white,),
+                    ),
+                  ],
+                ),
+              ),
+            ]
+        )
+    );
+  }
+  submit() async{
+    print(title.text + " " + body.text + " " + time.text + " " + reminderTime.text);
+    await Firestore.instance.collection('reminders').document(userr).collection('reminder').document()
+        .setData({ 'title': title.text, 'body': body.text, 'time': time.text, 'reminderTime': reminderTime.text });
     Navigator.pop(context);
   }
-  /* Future onSelectNotification(String payload) async {
+/* Future onSelectNotification(String payload) async {
     if (payload != null)
       {
         print('notification payload: ' + payload);
