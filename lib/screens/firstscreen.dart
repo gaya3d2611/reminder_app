@@ -36,11 +36,10 @@ class FirstScreenState extends State<FirstScreen> {
     //print(userr);
     print(uname);
     print('**********************');
-
     super.initState();
   }
 
-  final AuthService _authService = AuthService();
+ // final AuthService _authService = AuthService();
   some() async {
     final FirebaseUser user = await FirebaseAuth.instance.currentUser();
     final String UID = user.uid.toString();
@@ -120,7 +119,7 @@ class FirstScreenState extends State<FirstScreen> {
                           ),
                           Center(
                             child: Text(
-                              'Welcome, ' + name,
+                              'Welcome, ' ,
                               style: TextStyle(
                                   color: Colors.white, fontSize: 28.0),
                             ),

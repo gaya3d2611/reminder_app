@@ -12,7 +12,8 @@ class registerPage extends StatefulWidget {
 }
 
 class _registerPageState extends State<registerPage> {
-  final AuthService _authService = AuthService();
+  final FirebaseAuth _auth= FirebaseAuth.instance;
+  var userr;
   final _formKey = GlobalKey<FormState>();
   String usern = '';
   String passw = '';
@@ -27,7 +28,7 @@ class _registerPageState extends State<registerPage> {
   final body = new TextEditingController();
   final time = new TextEditingController();
   final reminderTime = TextEditingController();
-  String UID;
+
 
   @override
   Widget build(BuildContext context) {
@@ -162,25 +163,22 @@ class _registerPageState extends State<registerPage> {
                         child: RaisedButton(
                           onPressed: () async {
                             if (_formKey.currentState.validate()) {
-                              dynamic result = await _authService
-                                  .registerWithEmailAndPassword(usern, passw);
-                              /* FirebaseUser user = (await FirebaseAuth.instance
+
+                              FirebaseUser user = (await FirebaseAuth.instance
                                       .createUserWithEmailAndPassword(
                                           email: usern, password: passw))
-                                  .user; */
-                              if (result == null) {
+                                  .user;
+                              userr=user.uid;
+                              if (userr == null) {
                                 setState(() => error =
                                     'Entered E-Mail or password is incorrect');
                               } else {
                                 submit();
                                 print(
                                     '**********************************************');
-                                print(result.uid);
+                                print(userr);
                                 print(
                                     '**********************************************');
-                                setState(() {
-                                  UID = result.uid;
-                                });
                                 Navigator.pushReplacement(
                                     context,
                                     MaterialPageRoute(
@@ -262,11 +260,12 @@ class _registerPageState extends State<registerPage> {
     );
   }
 
+
   submit() async {
     //print(title.text + " " + body.text + " " + time.text + " " + reminderTime.text);
     await Firestore.instance
         .collection('reminders')
-        .document(UID)
+        .document(userr)
         .collection('details')
         .document('udetails')
         .setData({'name': namee.text, 'email': emaill.text});
