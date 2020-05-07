@@ -1,11 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:your_reminders/Models/user.dart';
+//import 'package:your_reminders/Models/user.dart';
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  User _userFromFirebaseUser(FirebaseUser user) {
+  /*User _userFromFirebaseUser(FirebaseUser user) {
     return user != null ? User(uid: user.uid) : null;
-  }
+  } */
 
   //sign-in with email and pass
   Future signInWithEmailAndPassword(String email, String password) async {
@@ -24,7 +24,7 @@ class AuthService {
   }
 
 //Register with email and pass
-  Future registerWithEmailAndPassword(String email, String password) async {
+ /* Future registerWithEmailAndPassword(String email, String password) async {
     try {
       AuthResult result = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
@@ -34,7 +34,7 @@ class AuthService {
       print(error.toString());
       return null;
     }
-  }
+  } */
 
 //Logout
   Future signOut() async {

@@ -36,10 +36,7 @@ class FirstScreenState extends State<FirstScreen> {
     //print(userr);
     print(uname);
     print('**********************');
-    nameFetch();
-    name = name.toString();
-    print('*-***********************');
-    print(name);
+
     super.initState();
   }
 
@@ -50,9 +47,10 @@ class FirstScreenState extends State<FirstScreen> {
     final String unamee = user.uid.toString();
     print(unamee);
     print('************************************');
-    setState(() {
-      userr = UID;
-    });
+    nameFetch();
+    name = name.toString();
+    print('*-***********************');
+    print(name);
   }
 
   @override
