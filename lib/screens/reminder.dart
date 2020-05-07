@@ -33,10 +33,7 @@ class _remiderState extends State<remider> {
   final AuthService _authService= AuthService();
   some()async{
     final FirebaseUser user= await FirebaseAuth.instance.currentUser();
-    final String UID = user.uid.toString();
-    setState(() {
-      userr=UID;
-    });
+    userr = user.uid;
   }
   final title= new TextEditingController();
   final body= new TextEditingController();
@@ -160,73 +157,80 @@ class _remiderState extends State<remider> {
         body: Stack(
             fit: StackFit.expand,
             children: <Widget>[
-              Container(
-                decoration: new BoxDecoration(image: new DecorationImage(
-                    image: AssetImage('asset/images/reminderBackground.png'),
-                    fit: BoxFit.fitHeight)
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Color(0x52000000),
+              SingleChildScrollView(
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height,
+                  decoration: BoxDecoration(
+                      image: DecorationImage(image: AssetImage('asset/images/reminderBackground.png'), fit: BoxFit.fill)
+                  ),
+                    child: Column(
+                      children: <Widget>[
+                        SizedBox(height: MediaQuery.of(context).size.height/2,),
+                        Center(
+                          child: Container(
+                            width: MediaQuery.of(context).size.width-50,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                              color: Color(0xFFFFFFFF),
+                            ),
+                            child: TextField(
+                              controller: title,
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(borderRadius: BorderRadius.circular(20.0)),
+                                labelText: "give your reminder a title",
+                              ),
+
+                            ),
+                          ),
                         ),
-                        child: TextField(
-                          controller: title,
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(),
-                            labelText: "give your reminder a title",
+                        SizedBox(height: 20),
+                        Container(
+                          width: MediaQuery.of(context).size.width-50,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                            color: Color(0xFFFFFFFF),
                           ),
 
+                          child: TextField(
+                              maxLines: 6,
+                              controller: body,
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(borderRadius: BorderRadius.circular(20.0)),
+                                labelText: "enter your reminder",
+                              )
+                          ),
                         ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(9)),
-                          color: Color(0x52000000),
-                        ),
+                        SizedBox(height: 40),
+                        Container(
+                          height: 50,
 
-                        child: TextField(
-                            maxLines: 6,
-                            controller: body,
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(),
-                              labelText: "enter your reminder",
-                            )
-                        ),
-                      ),
-                    ),
-                    Padding(padding: const EdgeInsets.all(20.0),
-                      child:
-                      RaisedButton(
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24.0)),
-                        color: Colors.black,
-                        onPressed: () async {
-                          var result = await TimePicker.pickTime(context,
-                              selectedColor: Colors.amber,
-                              nonSelectedColor: Colors.black,
-                              displayType: DisplayType.bottomSheet,
-                              timePickType: TimePickType.hourMinute,
-                              buttonBackgroundColor: Colors.red,
-                              title: "this is bottomsheet",
-                              fontSize: 24.0,
-                              isTwelveHourFormat: true);
-                          print("ini apa ? $result");
-                          reminderTime.text= result.toString();
-                          //String reminderTimee = DateFormat('hh:mm:ss').format(result),
+                          child: RaisedButton(
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24.0)),
+                            color: Colors.black,
+                            onPressed: () async {
+                              print(userr + 'this is uid in reminder button');
+                              //print(uidd + 'uidd');
+                              print('*****************************************');
+                              var result = await TimePicker.pickTime(context,
+                                  selectedColor: Colors.amber,
+                                  nonSelectedColor: Colors.black,
+                                  displayType: DisplayType.bottomSheet,
+                                  timePickType: TimePickType.hourMinute,
+                                  buttonBackgroundColor: Colors.red,
+                                  title: "this is bottomsheet",
+                                  fontSize: 24.0,
+                                  isTwelveHourFormat: true);
+                              print("ini apa ? $result");
+                              reminderTime.text= result.toString();
+                              //String reminderTimee = DateFormat('hh:mm:ss').format(result),
 
-                        },
-                        child: Text("Click to enter time"), textColor: Colors.white,),
+                            },
+                            child: Text("Click to enter time"), textColor: Colors.white,),
+                        ),
+                      ],
                     ),
-                  ],
+
                 ),
               ),
             ]
@@ -234,6 +238,7 @@ class _remiderState extends State<remider> {
     );
   }
   submit() async{
+    print(userr);
     print(title.text + " " + body.text + " " + time.text + " " + reminderTime.text);
     await Firestore.instance.collection('reminders').document(userr).collection('reminder').document()
         .setData({ 'title': title.text, 'body': body.text, 'time': time.text, 'reminderTime': reminderTime.text });

@@ -13,28 +13,25 @@ class FirstScreen extends StatefulWidget {
 class FirstScreenState extends State<FirstScreen> {
   var userr;
   var uname;
-  var name;
+
+  //var name;
   @override
   void initState(){
     some();
     print(userr);
-    print(uname);
-    print('**********************');
-    name= Firestore.instance.collection('reminders').document(userr).collection('details').document('udetails').collection('name');
-    name= name.toString();
-    print(name);
+    //print(uname);
+    print('**********************_________________');
+    //name= Firestore.instance.collection('reminders').document(userr).collection('details').document('udetails').collection('name');
+    //name= name.toString();
+    //print(name);
     super.initState();
   }
   final AuthService _authService= AuthService();
   some()async{
     final FirebaseUser user= await FirebaseAuth.instance.currentUser();
-    final String UID = user.uid.toString();
-    final String unamee= user.uid.toString();
-    print(unamee);
+     uname= user.uid;
+    print(uname);
     print('************************************');
-    setState(() {
-      userr=UID;
-    });
   }
   @override
   Widget build(BuildContext context) {
@@ -55,19 +52,25 @@ class FirstScreenState extends State<FirstScreen> {
       ),*/
         appBar: AppBar(
           actions: <Widget>[
-            FlatButton(
-              onPressed: (){
-                FirebaseAuth.instance.signOut();
-              },
-              child: Icon(Icons.exit_to_app, color: Colors.white,),
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: FlatButton(
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24.0)),
+                color: Color(0xFF604F8E),
+                onPressed: (){
+                  FirebaseAuth.instance.signOut();
+                },
+                child: Text('Sign out', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),),
+              ),
             )
           ],
-          title: Text("Your Reminders", style: TextStyle(color: Colors.white),),
+          //title: Text("Your Reminders", style: TextStyle(color: Colors.white),),
           centerTitle: true,
-          backgroundColor: Color(0xff121212),),
+          backgroundColor: Color(0xFFF0F0F0),
+        elevation: 0,),
         body: Container(
           decoration: BoxDecoration(
-              color: Color(0xB3F0F0F0)
+              color: Color(0xFFF0F0F0)
           ),
           child: Stack(
             // fit: StackFit.expand,
@@ -97,7 +100,7 @@ class FirstScreenState extends State<FirstScreen> {
                         children: <Widget>[
                           SizedBox(height: 150,),
                           Center(
-                            child: Text('Welcome, ' + name, style: TextStyle(color: Colors.white, fontSize: 28.0),),
+                            child: Text('Welcome, ', style: TextStyle(color: Colors.white, fontSize: 28.0),),
                           ),
                           SizedBox(height: 10,),
                           Center(
@@ -115,7 +118,7 @@ class FirstScreenState extends State<FirstScreen> {
               Padding(
                 padding: const EdgeInsets.only(top: 270),
                 child: StreamBuilder<QuerySnapshot>(
-                    stream: Firestore.instance.collection('reminders').document(userr).collection('reminder')
+                    stream: Firestore.instance.collection('reminders').document(uname).collection('reminder')
                         .snapshots(),
                     builder: (BuildContext context,
                         AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -137,6 +140,7 @@ class FirstScreenState extends State<FirstScreen> {
                               ),
                               SizedBox(height: 30,),
                               Center(child: Text('Oops!! it seems you have no reminders yet', style: TextStyle(fontSize: 20.0),)),
+                              Center(child: Text(uname, style: TextStyle(fontSize: 20.0),)),
                             ],
                           ):ListView(
                             children: snapshot.data.documents.map((
@@ -194,7 +198,8 @@ class FirstScreenState extends State<FirstScreen> {
                                           FlatButton(onPressed:(){
                                             id=document.documentID;
                                             print(id);
-                                            Firestore.instance.collection('reminders').document(userr).collection('reminder').document(id).delete();
+                                            print(uname);
+                                            Firestore.instance.collection('reminders').document(uname).collection('reminder').document(id).delete();
                                           }, child: Icon(Icons.delete))
                                       )
                                     ],

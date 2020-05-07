@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:your_reminders/Services/auth.dart';
@@ -10,7 +11,8 @@ class registerPage extends StatefulWidget {
 }
 
 class _registerPageState extends State<registerPage> {
-  final AuthService _authService= AuthService();
+  final FirebaseAuth _auth= FirebaseAuth.instance;
+  //final AuthService _authService= AuthService();
   final _formKey = GlobalKey<FormState>();
   String usern='';
   String passw='';
@@ -25,7 +27,7 @@ class _registerPageState extends State<registerPage> {
   final body= new TextEditingController();
   final time= new TextEditingController();
   final reminderTime= TextEditingController();
-  String UID;
+  var userr;
 
   @override
   Widget build(BuildContext context) {
@@ -166,16 +168,16 @@ class _registerPageState extends State<registerPage> {
                         height: 50,
                         child: RaisedButton(onPressed: ()async{
                           if(_formKey.currentState.validate()){
-                            dynamic result = await _authService.registerWithEmailAndPassword(usern, passw);
-                            if(result==null){
+                            final FirebaseUser user= (await _auth.createUserWithEmailAndPassword(email: emaill.text, password: passww.text)).user;
+                            userr= user.uid;
+                            if(userr==null){
                               setState(()=> error= 'Entered E-Mail or password is incorrect'
                               );
                             }else{
                               submit();
                               print('**********************************************');
-                              print(result.uid);
+                              print(userr);
                               print('**********************************************');
-                              UID= result.uid;
                               Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> FirstScreen()));
                             }
                           }
@@ -237,7 +239,7 @@ class _registerPageState extends State<registerPage> {
   }
   submit() async{
     //print(title.text + " " + body.text + " " + time.text + " " + reminderTime.text);
-    await Firestore.instance.collection('reminders').document(UID).collection('details').document('udetails').setData({'name': namee.text, 'email': emaill.text});
+    await Firestore.instance.collection('reminders').document(userr).collection('details').document('udetails').setData({'name': namee.text, 'email': emaill.text});
     Navigator.pop(context);
   }
 }

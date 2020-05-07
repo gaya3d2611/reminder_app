@@ -61,56 +61,59 @@ class _editReminderState extends State<editReminder> {
       body: Stack(
         fit: StackFit.expand,
         children: <Widget>[
-          Container(
-            height: MediaQuery.of(context).size.height,
-            width: MediaQuery.of(context).size.width,
-            decoration: new BoxDecoration(image: new DecorationImage(
-                image: AssetImage('asset/images/reminderBackground.png'),
-                fit: BoxFit.fitHeight)
-            ),
-          ),
-          Column(
-            children: <Widget>[
-              SizedBox(height: MediaQuery.of(context).size.height/2),
-              Center(
-                child: Container(
-                  width: MediaQuery.of(context).size.width-50,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(20)),
-                    color: Color(0xffffffff),
-                  ),
-                  child: TextField(
-                    controller: title,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20)
-                      ),
-                      labelText: "give your reminder a title",
-
-                    ),
-
-                  ),
-                ),
+          
+          SingleChildScrollView(
+            child: Container(
+              height: MediaQuery.of(context).size.height,
+              width: MediaQuery.of(context).size.width,
+              decoration: new BoxDecoration(image: new DecorationImage(
+                  image: AssetImage('asset/images/editReminderBackground.png'),
+                  fit: BoxFit.fitHeight)
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Container(
-                  width: MediaQuery.of(context).size.width-50,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(20)),
-                    color: Color(0xffffffff),
+              child: Column(
+                children: <Widget>[
+                  SizedBox(height: MediaQuery.of(context).size.height/2),
+                  Center(
+                    child: Container(
+                      width: MediaQuery.of(context).size.width-50,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                        color: Color(0xffffffff),
+                      ),
+                      child: TextField(
+                        controller: title,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(20)
+                          ),
+                          labelText: "give your reminder a title",
+
+                        ),
+
+                      ),
+                    ),
                   ),
-                  child: TextField(
-                      maxLines: 6,
-                      controller: body,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
-                        labelText: "enter your reminder",
-                      )
-                  ),
-                ),
-              )
-            ],
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      width: MediaQuery.of(context).size.width-50,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                        color: Color(0xffffffff),
+                      ),
+                      child: TextField(
+                          maxLines: 6,
+                          controller: body,
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
+                            labelText: "enter your reminder",
+                          )
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
           )
         ],
       ),
