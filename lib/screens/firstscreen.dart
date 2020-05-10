@@ -15,21 +15,9 @@ class FirstScreenState extends State<FirstScreen> {
   var userr;
   var uname;
   var name;
-  nameFetch() async {
-    print(userr + 'thi is fetcg function');
-    name = await Firestore.instance
-        .collection('reminders')
-        .document(userr)
-        .collection('details')
-        .document('udetails')
-        .get()
-        .then(
-          (value) {
-        print(value.toString());
-        print(name + 'this is name');
-      },
-    );
-  }
+  var UID;
+  var namee;
+  var names;
   //var name;
   @override
   void initState(){
@@ -37,13 +25,15 @@ class FirstScreenState extends State<FirstScreen> {
           print(userr);
           //print(uname);
           print('**********************_________________');
+          /*nameFetch();
+          name=name.toString();
+          print('*-********************');
+          print(name); */
+
           //name= Firestore.instance.collection('reminders').document(userr).collection('details').document('udetails').collection('name');
           //name= name.toString();
           //print(name);
-          nameFetch();
-          name=name.toString();
-          print('*-********************');
-          print(name);
+
           super.initState();
   }
   final AuthService _authService= AuthService();
@@ -51,13 +41,44 @@ class FirstScreenState extends State<FirstScreen> {
     final FirebaseUser user= await FirebaseAuth.instance.currentUser();
      uname= user.uid;
     print(uname);
-    print('************************************');
+    print('*****************_______*******************');
+      print('abcdefghijklmnopqrstuvwxyz');
+      name = await Firestore.instance
+          .collection('reminders')
+          .document(uname)
+          .collection('details')
+          .getDocuments()
+          .then((querySnapshot){
+        querySnapshot.documents.forEach((result) {
+          //print(result.data);
+          namee=result.data['name'];
+          return namee;
+        });
+      });
+
+      print(namee);
+      print('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+      namee=namee.toString();
+      setState(() {
+        names=namee;
+      });
+
+      /*.get()
+        .then(
+          (value) {
+        print(value.toString());
+        print(name + 'this is name');
+      },
+    ); */
+
+
+
   }
   @override
   Widget build(BuildContext context) {
-
     var id;
-
+    print(names);
+    print('_________________________________________________________');
     return Scaffold(
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         floatingActionButton: FloatingActionButton(
@@ -127,7 +148,6 @@ class FirstScreenState extends State<FirstScreen> {
                         return await _auth.signOut();
                       } catch (error) {
                         print(error.toString());
-
                         return null;
                       }
 
@@ -148,7 +168,7 @@ class FirstScreenState extends State<FirstScreen> {
                         children: <Widget>[
                           SizedBox(height: 150,),
                           Center(
-                            child: Text('Welcome, ' + name, style: TextStyle(color: Colors.white, fontSize: 28.0),),
+                            child: Text('Welcome, ' + names.toString(), style: TextStyle(color: Colors.white, fontSize: 28.0),),
                           ),
                           SizedBox(height: 10,),
                           Center(

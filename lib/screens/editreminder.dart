@@ -26,15 +26,15 @@ class _editReminderState extends State<editReminder> {
   final AuthService _authService= AuthService();
   some()async{
     final FirebaseUser user= await FirebaseAuth.instance.currentUser();
-    final String UID = user.uid.toString();
-    setState(() {
-      userr=UID;
-    });
+    final String userr = user.uid;
+    print(userr);
+    print('userr value in some function');
   }
   @override
   void initState(){
     some();
     print(userr);
+    print('this is edit reminder');
     print('**********************');
     super.initState();
   }
