@@ -20,6 +20,7 @@ class _registerPageState extends State<registerPage> {
   String Rpassw='';
   String error= '';
   final namee= new TextEditingController();
+  final lnamee= new TextEditingController();
   final emaill= new TextEditingController();
   final passww= new TextEditingController();
   final Rpassww= new TextEditingController();
@@ -63,13 +64,37 @@ class _registerPageState extends State<registerPage> {
                               borderSide: BorderSide()
                           ),
                           prefixIcon: Icon(Icons.person),
-                          hintText: "Name",
+                          hintText: " First Name",
                           hintStyle: TextStyle(
                               color: Colors.grey, fontSize: 14.0)),
                       validator: (val) => val.isEmpty? 'Enter your name' : null,
                       onChanged: (val)=>
                           setState(()=> name=val),
 
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 50, right: 50, top: 25),
+                  child: Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                        color: Color(0xFFFFFFFF)
+                    ),
+                    child: TextFormField(
+                      // keyboardType: TextInputType.phone,
+                      //validator: validateMobile,
+                      controller: lnamee,
+                      decoration: InputDecoration(
+                          fillColor: Colors.white,
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(20.0),
+                              borderSide: BorderSide()
+                          ),
+                          prefixIcon: Icon(Icons.person),
+                          hintText: "Last Name",
+                          hintStyle: TextStyle(
+                              color: Colors.grey, fontSize: 14.0)),
                     ),
                   ),
                 ),

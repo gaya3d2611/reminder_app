@@ -17,6 +17,8 @@ class editReminder extends StatefulWidget {
 
   }
   @override
+  void dispose(){}
+  @override
   _editReminderState createState() => _editReminderState(title, body, id);
 
 }
@@ -30,6 +32,7 @@ class _editReminderState extends State<editReminder> {
     print(userr);
     print('userr value in some function');
   }
+
   @override
   void initState(){
     some();
@@ -45,7 +48,6 @@ class _editReminderState extends State<editReminder> {
   Widget build(BuildContext context) {
     TextEditingController title= new TextEditingController(text:titlee.toString());
     TextEditingController body= new TextEditingController(text:bodyy.toString());
-
     update() async{
       print(idd);
       print(title.text + " " + body.text);
