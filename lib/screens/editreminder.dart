@@ -25,12 +25,16 @@ class editReminder extends StatefulWidget {
 
 class _editReminderState extends State<editReminder> {
   var userr;
+  var userrr;
   final AuthService _authService= AuthService();
   some()async{
     final FirebaseUser user= await FirebaseAuth.instance.currentUser();
     final String userr = user.uid;
     print(userr);
     print('userr value in some function');
+    setState(() {
+      userrr=userr;
+    });
   }
 
   @override
@@ -50,8 +54,9 @@ class _editReminderState extends State<editReminder> {
     TextEditingController body= new TextEditingController(text:bodyy.toString());
     update() async{
       print(idd);
+      print(userrr);
       print(title.text + " " + body.text);
-      await Firestore.instance.collection('reminders').document(userr).collection('reminder').document(idd).updateData({'title': title.text, 'body': body.text}); //setData({ 'title': titlee.text, 'body': bodyy.text });
+      await Firestore.instance.collection('reminders').document(userrr).collection('reminder').document(idd).updateData({'title': title.text, 'body': body.text}); //setData({ 'title': titlee.text, 'body': bodyy.text });
       Navigator.pop(context);
     }
     return Scaffold(
