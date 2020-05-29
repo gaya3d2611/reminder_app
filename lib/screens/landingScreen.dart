@@ -38,7 +38,7 @@ class _landingScreenState extends State<landingScreen> with SingleTickerProvider
     return Timer(duration, route);
   }
   route(){
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>Authenticate()));
+    Navigator.push(context, MaterialPageRoute(builder: (context)=>Authenticate()));
   }
 
   @override

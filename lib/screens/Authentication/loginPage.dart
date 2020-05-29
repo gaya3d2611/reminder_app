@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:your_reminders/Services/auth.dart';
 import 'package:your_reminders/screens/Authentication/register.dart';
 import 'package:your_reminders/screens/firstscreen.dart';
-
+import 'package:toast/toast.dart';
 class loginPage extends StatefulWidget {
   @override
   _loginPageState createState() => _loginPageState();
@@ -33,13 +33,13 @@ class _loginPageState extends State<loginPage> {
               children: <Widget>[
                 Container(
                   width: MediaQuery.of(context).size.width,
-                  height: 440,
+                  height: MediaQuery.of(context).size.height/3,
                   decoration: BoxDecoration(
                     image: DecorationImage(image: AssetImage('asset/images/reminderGIF.gif'))
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 50, right: 50,),
+                  padding: const EdgeInsets.only(top: 40, left: 50, right: 50,),
                   child: TextFormField(
                    // keyboardType: TextInputType.phone,
                     //validator: validateMobile,
@@ -82,7 +82,7 @@ class _loginPageState extends State<loginPage> {
                   child: Padding(
                     padding: const EdgeInsets.only(top: 40),
                     child: Container(
-                      width: MediaQuery.of(context).size.width-260,
+                      width: MediaQuery.of(context).size.width-180,
                       height: 50,
                       child: RaisedButton(onPressed: ()async{
                         if(_formKey.currentState.validate()){
@@ -90,8 +90,9 @@ class _loginPageState extends State<loginPage> {
                           if(result==null){
                             setState(()=> error= 'Entered E-Mail or password is incorrect'
                             );
+                            Toast.show(error,context, duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM, textColor:Colors.black, backgroundColor: Color(0xFFD3D3D3), );
                           }else{
-                            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> FirstScreen()));
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=> FirstScreen()));
                           }
                         }
                     },
@@ -117,10 +118,10 @@ class _loginPageState extends State<loginPage> {
                 Text('or', style: TextStyle(color: Colors.black26, fontSize: 14.0)),
                 Center(
                   child: Container(
-                    width: MediaQuery.of(context).size.width-260,
+                    width: MediaQuery.of(context).size.width-180,
                     height: 50,
                     child: RaisedButton(onPressed: ()async{
-                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> registerPage()));
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=> registerPage()));
                     },
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24.0)),
                       color: Colors.black,

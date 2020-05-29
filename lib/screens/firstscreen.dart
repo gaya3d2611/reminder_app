@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import "package:flutter/material.dart";
 import 'package:your_reminders/Services/auth.dart';
+import 'package:your_reminders/screens/Authentication/loginPage.dart';
 import 'package:your_reminders/screens/editreminder.dart';
 import 'reminder.dart';
 class FirstScreen extends StatefulWidget {
@@ -143,7 +144,7 @@ class FirstScreenState extends State<FirstScreen> {
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24.0)),
                     color: Color(0xFF604F8E),
                     onPressed: () async{
-
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=>loginPage()));
                       try {
                         return await _auth.signOut();
                       } catch (error) {
@@ -168,11 +169,11 @@ class FirstScreenState extends State<FirstScreen> {
                         children: <Widget>[
                           SizedBox(height: 150,),
                           Center(
-                            child: Text('Welcome, ' + names.toString(), style: TextStyle(color: Colors.white, fontSize: 28.0),),
+                            child: Text('Welcome, ' + names.toString(), style: TextStyle(color: Colors.white, fontSize: 24.0),),
                           ),
                           SizedBox(height: 10,),
                           Center(
-                            child: Text('Here are your reminders', style: TextStyle(color: Colors.white, fontSize: 28.0),),
+                            child: Text('Here are your reminders', style: TextStyle(color: Colors.white, fontSize: 24.0),),
                           ),
                         ],
                       ),
