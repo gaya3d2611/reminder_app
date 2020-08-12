@@ -23,22 +23,24 @@ import "package:flutter/material.dart";
 import 'package:your_reminders/Services/auth.dart';
 import 'package:your_reminders/screens/editreminder.dart';
 import 'reminder.dart';
-class remider extends StatefulWidget {
 
+class remider extends StatefulWidget {
   @override
   _remiderState createState() => _remiderState();
 }
+
 class _remiderState extends State<remider> {
   var userr;
-  final AuthService _authService= AuthService();
-  some()async{
-    final FirebaseUser user= await FirebaseAuth.instance.currentUser();
+  final AuthService _authService = AuthService();
+  some() async {
+    final FirebaseUser user = await FirebaseAuth.instance.currentUser();
     userr = user.uid;
   }
-  final title= new TextEditingController();
-  final body= new TextEditingController();
-  final time= new TextEditingController();
-  final reminderTime= TextEditingController();
+
+  final title = new TextEditingController();
+  final body = new TextEditingController();
+  final time = new TextEditingController();
+  final reminderTime = TextEditingController();
 
   /*TimeOfDay _time = TimeOfDay.now();
   void onTimeChanged(TimeOfDay newTime) {
@@ -46,17 +48,18 @@ class _remiderState extends State<remider> {
       _time = newTime;
     });
   } */
-  final FirebaseMessaging messaging =FirebaseMessaging();
+  final FirebaseMessaging messaging = FirebaseMessaging();
   @override
-  void initState(){
+  void initState() {
     some();
     print(userr);
     print('**********************');
     super.initState();
-    messaging.getToken().then((token){
+    messaging.getToken().then((token) {
       print("token:" + token);
     });
   }
+
   @override
   Widget build(BuildContext context) {
     /* FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =  FlutterLocalNotificationsPlugin();
@@ -139,9 +142,10 @@ class _remiderState extends State<remider> {
     String formattedDate = DateFormat('hh:mm:ss').format(now);
     return Scaffold(
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        floatingActionButton: FloatingActionButton(onPressed: ()async{
-          time.text= formattedDate.toString();
-          /* await flutterLocalNotificationsPlugin.showWeeklyAtDayAndTime(id, title, body, day, notificationTime, notificationDetails)Time(
+        floatingActionButton: FloatingActionButton(
+          onPressed: () async {
+            time.text = formattedDate.toString();
+            /* await flutterLocalNotificationsPlugin.showWeeklyAtDayAndTime(id, title, body, day, notificationTime, notificationDetails)Time(
             Time(1,30,0),
             Day.Sunday,
             0,
@@ -151,97 +155,112 @@ class _remiderState extends State<remider> {
           setState(() {
             flutterLocalNotificationsPlugin.getScheduledNotifications();
           }); */
-          submit();
-        },
-          child: Icon(Icons.check),),
-        body: Stack(
-            fit: StackFit.expand,
-            children: <Widget>[
-              SingleChildScrollView(
-                child: Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height,
-                  decoration: BoxDecoration(
-                      image: DecorationImage(image: AssetImage('asset/images/reminderBackground.png'), fit: BoxFit.fill)
+            submit();
+          },
+          child: Icon(Icons.check),
+        ),
+        body: Stack(fit: StackFit.expand, children: <Widget>[
+          SingleChildScrollView(
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height,
+              decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage('asset/images/reminderBackground.png'),
+                      fit: BoxFit.fill)),
+              child: Column(
+                children: <Widget>[
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height / 2,
                   ),
-                    child: Column(
-                      children: <Widget>[
-                        SizedBox(height: MediaQuery.of(context).size.height/2,),
-                        Center(
-                          child: Container(
-                            width: MediaQuery.of(context).size.width-50,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                              color: Color(0xFFFFFFFF),
-                            ),
-                            child: TextField(
-                              controller: title,
-                              decoration: InputDecoration(
-                                border: OutlineInputBorder(borderRadius: BorderRadius.circular(20.0)),
-                                labelText: "give your reminder a title",
-                              ),
-
-                            ),
-                          ),
+                  Center(
+                    child: Container(
+                      width: MediaQuery.of(context).size.width - 50,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                        color: Color(0xFFFFFFFF),
+                      ),
+                      child: TextField(
+                        controller: title,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(20.0)),
+                          labelText: "give your reminder a title",
                         ),
-                        SizedBox(height: 20),
-                        Container(
-                          width: MediaQuery.of(context).size.width-50,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                            color: Color(0xFFFFFFFF),
-                          ),
-
-                          child: TextField(
-                              maxLines: 6,
-                              controller: body,
-                              decoration: InputDecoration(
-                                border: OutlineInputBorder(borderRadius: BorderRadius.circular(20.0)),
-                                labelText: "enter your reminder",
-                              )
-                          ),
-                        ),
-                        SizedBox(height: 40),
-                        Container(
-                          height: 50,
-
-                          child: RaisedButton(
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24.0)),
-                            color: Colors.black,
-                            onPressed: () async {
-                              print(userr + 'this is uid in reminder button');
-                              //print(uidd + 'uidd');
-                              print('*****************************************');
-                              var result = await TimePicker.pickTime(context,
-                                  selectedColor: Colors.amber,
-                                  nonSelectedColor: Colors.black,
-                                  displayType: DisplayType.bottomSheet,
-                                  timePickType: TimePickType.hourMinute,
-                                  buttonBackgroundColor: Colors.red,
-                                  title: "this is bottomsheet",
-                                  fontSize: 24.0,
-                                  isTwelveHourFormat: true);
-                              print("ini apa ? $result");
-                              reminderTime.text= result.toString();
-                              //String reminderTimee = DateFormat('hh:mm:ss').format(result),
-
-                            },
-                            child: Text("Click to enter time"), textColor: Colors.white,),
-                        ),
-                      ],
+                      ),
                     ),
-
-                ),
+                  ),
+                  SizedBox(height: 20),
+                  Container(
+                    width: MediaQuery.of(context).size.width - 50,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                      color: Color(0xFFFFFFFF),
+                    ),
+                    child: TextField(
+                        maxLines: 4,
+                        controller: body,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(20.0)),
+                          labelText: "enter your reminder",
+                        )),
+                  ),
+                  SizedBox(height: 30),
+                  Container(
+                    height: 50,
+                    child: RaisedButton(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(24.0)),
+                      color: Colors.black,
+                      onPressed: () async {
+                        print(userr + 'this is uid in reminder button');
+                        //print(uidd + 'uidd');
+                        print('*****************************************');
+                        var result = await TimePicker.pickTime(context,
+                            selectedColor: Colors.amber,
+                            nonSelectedColor: Colors.black,
+                            displayType: DisplayType.bottomSheet,
+                            timePickType: TimePickType.hourMinute,
+                            buttonBackgroundColor: Colors.red,
+                            title: "this is bottomsheet",
+                            fontSize: 24.0,
+                            isTwelveHourFormat: true);
+                        print("ini apa ? $result");
+                        reminderTime.text = result.toString();
+                        //String reminderTimee = DateFormat('hh:mm:ss').format(result),
+                      },
+                      child: Text("Click to enter time"),
+                      textColor: Colors.white,
+                    ),
+                  ),
+                ],
               ),
-            ]
-        )
-    );
+            ),
+          ),
+        ]));
   }
-  submit() async{
+
+  submit() async {
     print(userr);
-    print(title.text + " " + body.text + " " + time.text + " " + reminderTime.text);
-    await Firestore.instance.collection('reminders').document(userr).collection('reminder').document()
-        .setData({ 'title': title.text, 'body': body.text, 'time': time.text, 'reminderTime': reminderTime.text });
+    print(title.text +
+        " " +
+        body.text +
+        " " +
+        time.text +
+        " " +
+        reminderTime.text);
+    await Firestore.instance
+        .collection('reminders')
+        .document(userr)
+        .collection('reminder')
+        .document()
+        .setData({
+      'title': title.text,
+      'body': body.text,
+      'time': time.text,
+      'reminderTime': reminderTime.text
+    });
     Navigator.pop(context);
   }
 /* Future onSelectNotification(String payload) async {
